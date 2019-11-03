@@ -3,6 +3,7 @@ package ua.nure.itkn179.kushnarenko.db;
 import java.util.Calendar;
 
 import org.dbunit.DatabaseTestCase;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 
@@ -19,7 +20,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	private static final int CREATE_DAY = 1;
 	
 	
-
+	
 	public void testCreate() throws DatabaseException {
 		User user = new User();
 
@@ -38,21 +39,21 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		
 	}
 	
-	
+	@Override
 	protected void setUp() throws Exception {
-		super.setUp();
+		//super.setUp();
 		connectionFactory = new ConnectionFactoryImplement();
 		dao = new HsqldbUserDao(connectionFactory);
 	}
-
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
 
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		connectionFactory = new ConnectionFactoryImplement();
+		return new DatabaseConnection(connectionFactory.createConnection());
 	}
 
 	@Override
