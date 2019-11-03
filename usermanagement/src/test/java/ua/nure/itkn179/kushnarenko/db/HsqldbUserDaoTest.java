@@ -10,6 +10,7 @@ import ua.nure.itkn179.kushnarenko.User;
 
 public class HsqldbUserDaoTest extends DatabaseTestCase {
 	private HsqldbUserDao dao;
+	private ConnectionFactory connectionFactory;
 
 	private static final String LAST_NAME = "Cena";
 	private static final String FIRST_NAME = "John";
@@ -40,6 +41,8 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		connectionFactory = new ConnectionFactoryImplement();
+		dao = new HsqldbUserDao(connectionFactory);
 	}
 
 	protected void tearDown() throws Exception {

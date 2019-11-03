@@ -5,6 +5,12 @@ import ua.nure.itkn179.kushnarenko.User;
 
 public class HsqldbUserDao implements Dao<User> {
 
+	private ConnectionFactory connectionFactory;
+	
+	public HsqldbUserDao(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+	
 	@Override
 	public User create(User entity) throws DatabaseException {
 		// TODO Auto-generated method stub
