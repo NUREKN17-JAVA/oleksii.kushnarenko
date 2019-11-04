@@ -115,15 +115,13 @@ class HsqldbUserDao implements Dao<User> {
         	 PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
         	 statement.setLong(1, id);
         	 ResultSet resultSet = statement.executeQuery();
-        	 if (!resultSet.next()) {
-                 return null;
+        	 if (resultSet.next()) {
+        		 user = new User();
+            	 user.setId(resultSet.getLong(1));
+                 user.setFirstName(resultSet.getString(2));
+                 user.setLastName(resultSet.getString(3));
+                 user.setDateofBirth(resultSet.getDate(4));
              }
-        	 
-        	 user = new User();
-        	 user.setId(resultSet.getLong(1));
-             user.setFirstName(resultSet.getString(2));
-             user.setLastName(resultSet.getString(3));
-             user.setDateofBirth(resultSet.getDate(4));
              
              resultSet.close();
              statement.close();
