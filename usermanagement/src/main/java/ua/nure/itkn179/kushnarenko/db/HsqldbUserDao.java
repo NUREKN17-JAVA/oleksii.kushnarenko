@@ -12,14 +12,25 @@ import java.util.LinkedList;
 
 import ua.nure.itkn179.kushnarenko.User;
 
-public class HsqldbUserDao implements Dao<User> {
+class HsqldbUserDao implements Dao<User> {
 	
 	private static final String INSERT_QUERY = "INSERT INTO users (firstname, lastname, dateofbirth) VALUES (?, ?, ?)";
 	private static final String SELECT_ALL_QUERY = "SELECT id, firstname, lastname, dateofbirth FROM users";
 
 	private ConnectionFactory connectionFactory;
 	
+	public HsqldbUserDao() {
+    }
+	
 	public HsqldbUserDao(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+	
+	public ConnectionFactory getConnectionFactory() {
+        return connectionFactory;
+    }
+
+    public void setConnectionFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 	
