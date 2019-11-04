@@ -1,12 +1,17 @@
 package ua.nure.itkn179.kushnarenko.db;
 
 import java.util.Calendar;
+import java.util.Collection;
+
+
 
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
+
+
 
 import ua.nure.itkn179.kushnarenko.User;
 
@@ -20,7 +25,11 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	private static final int MONTH = 1;
 	private static final int CREATE_DAY = 1;
 	
-	
+	//@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		dao = new HsqldbUserDao(connectionFactory);
+	}
 	
 	public void testCreate() throws DatabaseException {
 		User user = new User();
@@ -39,17 +48,12 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
         assertEquals(user.getDateofBirth(), userToCheck.getDateofBirth());
 		
 	}
+	public void testFindAll() throws DatabaseException {
+        Collection<User> items = dao.findAll();
+        assertNotNull("Collection is null", items);
+        assertEquals("Collection size doesn't match.", 2, items.size());
+    }
 	
-	@Override
-	protected void setUp() throws Exception {
-		//super.setUp();
-		connectionFactory = new ConnectionFactoryImplement();
-		dao = new HsqldbUserDao(connectionFactory);
-	}
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
 
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
