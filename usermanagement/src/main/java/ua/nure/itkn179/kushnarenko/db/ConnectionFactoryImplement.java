@@ -3,8 +3,14 @@ package ua.nure.itkn179.kushnarenko.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionFactoryImplement implements ConnectionFactory {
+	private static final String USER = "connection.user";
+	private static final String PASSWORD = "connection.password";
+	private static final String URL = "connection.url";
+	private static final String DRIVER = "connection.driver";
+	
 	
 	private String driver;
 	private String url;
@@ -19,6 +25,14 @@ public class ConnectionFactoryImplement implements ConnectionFactory {
 	}
 
 	
+	public ConnectionFactoryImplement(Properties properties) {
+		 user = properties.getProperty(USER);
+	     password = properties.getProperty(PASSWORD);
+	     url = properties.getProperty(URL);
+	     driver = properties.getProperty(DRIVER);
+	}
+
+
 	@Override
 	public Connection createConnection() throws DatabaseException {
 		try {
