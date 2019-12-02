@@ -42,4 +42,19 @@ public class MainFrame extends JFrame {
 		//init table
         return browsePanel;
 	}
+
+	public void showAddPanel() {
+		showPanel(getAddPanel());
+	}
+	
+	private void showPanel(JPanel panel) {
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setVisible(true);
+		panel.repaint();
+	}
+
+	private AddPanel getAddPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
