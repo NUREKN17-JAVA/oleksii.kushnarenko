@@ -18,6 +18,7 @@ public class MainFrameTest extends JFCTestCase {
 		private static final String EDIT_BUTTON = "editButton";
 		private static final String ADD_BUTTON = "addButton";
 		private static final String BROWSE_PANEL = "browse Panel";
+		private static final String ADD_PANEL = "addPanel";
 	
 		private MainFrame mainFrame;
 	
@@ -59,7 +60,7 @@ public class MainFrameTest extends JFCTestCase {
 			JButton addButton = (JButton) find(JButton.class, ADD_BUTTON);
 			getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
 
-			find(JPanel.class, "addPanel");
+			find(JPanel.class, ADD_PANEL);
 
 			find(JTextField.class, "firstNameField");
 			find(JTextField.class, "lastNameField");

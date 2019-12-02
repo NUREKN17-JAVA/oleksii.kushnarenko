@@ -5,14 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainFrame extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6453541388344304246L;
 	private static final int FRAME_WIDTH = 800;
 	private static final int FRAME_HEIGHT = 600;
 	private JPanel contentPanel;
 	private JPanel browsePanel;
+	private AddPanel addPanel;
 	
 	public MainFrame() {
 		super();
@@ -34,6 +32,11 @@ public class MainFrame extends JFrame {
 	     }
 	     return contentPanel;
 	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MainFrame frame = new MainFrame();
+		frame.setVisible(true);
+	}
 
 	private JPanel getBrowsePanel() {
 		if (browsePanel == null) {
@@ -54,7 +57,9 @@ public class MainFrame extends JFrame {
 	}
 
 	private AddPanel getAddPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		if (addPanel == null) {
+			addPanel = new AddPanel(this);
+		}
+		return addPanel;
 	}
 }

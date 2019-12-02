@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class BrowsePanel extends JPanel implements ActionListener {
+	private static final long serialVersionUID = -1714852752303056392L;
 	private static final String BROWSE_PANEL = "browse Panel";
 	private MainFrame parent;
 	private JPanel buttonPanel;
@@ -20,8 +21,8 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JScrollPane tablePanel;
 	private JTable userTable;
 
-	public BrowsePanel(MainFrame mainFrame) {
-		parent  = mainFrame;
+	public BrowsePanel(MainFrame frame) {
+		parent  = frame;
 		initialize();
 	}
 
@@ -48,6 +49,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
             detailsButton = new JButton();
             detailsButton.setText("Details"); 
             detailsButton.setName("detailsButton");
+            detailsButton.setActionCommand("details");
             detailsButton.addActionListener(this);
         }
         return detailsButton;
@@ -58,6 +60,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			deleteButton = new JButton();
 			deleteButton.setText("Delete");
 			deleteButton.setName("deleteButton");
+			deleteButton.setActionCommand("delete");
 			deleteButton.addActionListener(this);
 		}
 		return deleteButton;
@@ -68,6 +71,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			editButton = new JButton();
 			editButton.setText("Edit");
 			editButton.setName("editButton");
+			editButton.setActionCommand("edit");
 			editButton.addActionListener(this);
 		}
 		return editButton;
@@ -78,6 +82,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			addButton = new JButton();
 			addButton.setText("Add");
 			addButton.setName("addButton");
+			addButton.setActionCommand("add");
 			addButton.addActionListener(this);
 		}
 		return addButton;

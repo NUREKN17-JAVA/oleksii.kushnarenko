@@ -11,12 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AddPanel extends JPanel implements ActionListener {
+	private static final String ADD_PANEL = "addPanel";
+	private static final long serialVersionUID = 8945327706974938671L;
 	private MainFrame parent;
 	private JPanel buttonPanel;
 	private JButton cancelButton;
 	private JButton okButton;
 	private JPanel fieldPanel;
-	private JTextField dayOfBirthField;
+	private JTextField dateOfBirthField;
 	private JTextField lastNameField;
 	private JTextField firstNameField;
 	
@@ -26,6 +28,7 @@ public class AddPanel extends JPanel implements ActionListener {
 	}
 	
 	private void initialize() {
+		this.setName(ADD_PANEL);
 		this.setLayout(new BorderLayout());
 		this.add(getFieldPanel(), BorderLayout.NORTH);
 		this.add(getButtonPanel(), BorderLayout.SOUTH);
@@ -65,7 +68,7 @@ public class AddPanel extends JPanel implements ActionListener {
 	private JPanel getFieldPanel() {
 		if (fieldPanel == null) {
 			fieldPanel = new JPanel();
-			fieldPanel.setLayout(new GridLayout(2, 3));
+			fieldPanel.setLayout(new GridLayout(3, 3));
 			addLabeledField(fieldPanel, "Name", getFirstNameField());
 			addLabeledField(fieldPanel, "Surname", getLastNameField());
 			addLabeledField(fieldPanel, "Date of birth", getDateOfBirthField());
@@ -74,11 +77,11 @@ public class AddPanel extends JPanel implements ActionListener {
 	}
 	
 	private JTextField getDateOfBirthField() {
-		if (dayOfBirthField == null) {
-			dayOfBirthField = new JTextField();
-			dayOfBirthField.setName("dayOfBirthField");
+		if (dateOfBirthField == null) {
+			dateOfBirthField = new JTextField();
+			dateOfBirthField.setName("dateOfBirthField");
 		}
-		return dayOfBirthField;
+		return dateOfBirthField;
 	}
 	
 	private JTextField getLastNameField() {
