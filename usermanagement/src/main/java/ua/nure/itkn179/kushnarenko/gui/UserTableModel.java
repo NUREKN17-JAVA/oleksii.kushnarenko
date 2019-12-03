@@ -9,6 +9,7 @@ import javax.swing.table.AbstractTableModel;
 import ua.nure.itkn179.kushnarenko.User;
 
 public class UserTableModel extends AbstractTableModel {
+	private static final long serialVersionUID = 2639683288582654660L;
 	private static final String[] COLUMN_NAMES = {"ID", "Name", "Surname"};
 	private static final Class<?>[] COLUMN_CLASSES = {Long.class, String.class, String.class};
 	
