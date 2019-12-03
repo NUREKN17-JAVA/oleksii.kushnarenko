@@ -3,6 +3,7 @@ package ua.nure.itkn179.kushnarenko.gui;
 import java.awt.Component;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,6 +16,9 @@ import junit.extensions.jfcunit.TestHelper;
 import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.eventdata.StringEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
+import ua.nure.itkn179.kushnarenko.db.DaoFactory;
+import ua.nure.itkn179.kushnarenko.db.DaoFactoryImpl;
+import ua.nure.itkn179.kushnarenko.db.MockUserDao;
 
 public class MainFrameTest extends JFCTestCase {
 		private static final String DELETE_BUTTON = "deleteButton";
@@ -30,6 +34,13 @@ public class MainFrameTest extends JFCTestCase {
 		public void setUp() throws Exception {
 			super.setUp();
 			setHelper(new JFCTestHelper());
+			
+			Properties properties = new Properties();
+			properties.setProperty("ua.nure.itkn179.kushnarenko.db.Dao", 
+					MockUserDao.class.getName());
+			properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
+			DaoFactory.init(properties);
+			
 			mainFrame = new MainFrame();
 			mainFrame.setVisible(true);
 		}
