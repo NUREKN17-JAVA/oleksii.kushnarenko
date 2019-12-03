@@ -1,15 +1,21 @@
 package ua.nure.itkn179.kushnarenko.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ua.nure.itkn179.kushnarenko.User;
+import ua.nure.itkn179.kushnarenko.db.DatabaseException;
 import ua.nure.itkn179.kushnarenko.util.Messages;
 
 public class AddPanel extends JPanel implements ActionListener {
@@ -111,7 +117,36 @@ public class AddPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if ("ok".equalsIgnoreCase(e.getActionCommand())) {
+			User user = new User();
+			user.setFirstName(getFirstNameField().getText());
+			user.setLastName(getLastNameField().getText());
+			DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT);
+			try {
+				user.setDateofBirth(format.parse(getDateOfBirthField().getText()));
+			} catch (ParseException e1) {
+				getDateOfBirthField().setBackground(Color.RED);
+				return;
+			}
+			try {
+				parent.getDao().create(user);
+			} catch (DatabaseException e1) {
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		clearFields();
 		this.setVisible(false);
 		parent.showBrowsePanel();
+	}
+
+	private void clearFields() {
+		getFirstNameField().setText("");
+		getFirstNameField().setBackground(Color.WHITE);
+
+		getLastNameField().setText("");
+		getLastNameField().setBackground(Color.WHITE);
+
+		getDateOfBirthField().setText("");
+		getDateOfBirthField().setBackground(Color.WHITE);
 	}
 }

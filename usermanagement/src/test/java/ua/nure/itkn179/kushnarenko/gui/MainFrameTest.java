@@ -33,15 +33,19 @@ public class MainFrameTest extends JFCTestCase {
 		@Override
 		public void setUp() throws Exception {
 			super.setUp();
-			setHelper(new JFCTestHelper());
-			
-			Properties properties = new Properties();
-			properties.setProperty("ua.nure.itkn179.kushnarenko.db.Dao", 
-					MockUserDao.class.getName());
-			properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
-			DaoFactory.init(properties);
-			
-			mainFrame = new MainFrame();
+			try {
+				setHelper(new JFCTestHelper());
+				
+				Properties properties = new Properties();
+				properties.setProperty("dao.UserDao", 
+						MockUserDao.class.getName());
+				properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
+				DaoFactory.init(properties);
+				
+				mainFrame = new MainFrame();
+			}catch (Exception e) {
+	            e.printStackTrace();
+	        }
 			mainFrame.setVisible(true);
 		}
 
@@ -94,7 +98,7 @@ public class MainFrameTest extends JFCTestCase {
 			
 			getHelper().sendString(new StringEventData(this, firstNameField, "John"));
 			getHelper().sendString(new StringEventData(this, lastNameField, "Cena"));
-			DateFormat formatter = DateFormat.getDateInstance();
+			DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT);
 			String date = formatter.format(new Date());
 			getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
 			

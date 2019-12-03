@@ -8,7 +8,7 @@ import ua.nure.itkn179.kushnarenko.User;
 
 public class MockUserDao implements Dao<User> {
 	private Long id = (long) 0;
-	private Map<Long, User> users = new HashMap<Long, User>();
+	private Map<Long, User> users = new HashMap<>();
 
 	@Override
 	public User create(User user) throws DatabaseException {

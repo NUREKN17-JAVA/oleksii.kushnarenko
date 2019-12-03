@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ua.nure.itkn179.kushnarenko.User;
+import ua.nure.itkn179.kushnarenko.db.Dao;
+import ua.nure.itkn179.kushnarenko.db.DaoFactory;
 import ua.nure.itkn179.kushnarenko.util.Messages;
 
 public class MainFrame extends JFrame {
@@ -13,10 +16,16 @@ public class MainFrame extends JFrame {
 	private JPanel contentPanel;
 	private JPanel browsePanel;
 	private AddPanel addPanel;
+	private Dao<User> dao;
 	
 	public MainFrame() {
 		super();
+		dao = DaoFactory.getInstance().getUserDao();
 		initialize();
+	}
+	
+	public Dao<User> getDao() {
+		return dao;
 	}
 
 	private void initialize() {
@@ -44,7 +53,7 @@ public class MainFrame extends JFrame {
 		if (browsePanel == null) {
             browsePanel = new BrowsePanel(this);
         }
-		//init table
+		((BrowsePanel) browsePanel).initTable();
         return browsePanel;
 	}
 
@@ -66,7 +75,8 @@ public class MainFrame extends JFrame {
 	}
 
 	public void showBrowsePanel() {
-		// TODO Auto-generated method stub
+		showPanel(getBrowsePanel());
 		
 	}
+
 }

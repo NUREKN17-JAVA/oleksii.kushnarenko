@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import ua.nure.itkn179.kushnarenko.db.DatabaseException;
 import ua.nure.itkn179.kushnarenko.util.Messages;
 
 public class BrowsePanel extends JPanel implements ActionListener {
@@ -102,10 +104,19 @@ public class BrowsePanel extends JPanel implements ActionListener {
 		if (userTable == null) {
             userTable = new JTable();
             userTable.setName("userTable"); //$NON-NLS-1$
-            UserTableModel model = new UserTableModel(new ArrayList<>());
-			userTable.setModel(model);
         }
         return userTable;
+	}
+	public void initTable() {
+		UserTableModel model;
+		try {
+			model = new UserTableModel(parent.getDao().findAll());
+		} catch (DatabaseException e) {
+			model = new UserTableModel(new ArrayList<>());
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		//userTable.setModel(model);
+		getUserTable().setModel(model);
 	}
 
 	@Override
