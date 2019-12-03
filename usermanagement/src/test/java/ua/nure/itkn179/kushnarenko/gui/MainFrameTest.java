@@ -2,6 +2,7 @@ package ua.nure.itkn179.kushnarenko.gui;
 
 import java.awt.Component;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,10 @@ public class MainFrameTest extends JFCTestCase {
 		private static final String ADD_BUTTON = "addButton";
 		private static final String BROWSE_PANEL = "browse Panel";
 		private static final String ADD_PANEL = "addPanel";
+		
+		private static final String LAST_NAME = "Cena";
+		private static final String FIRST_NAME = "John";
+		private static final Date DATE_OF_BIRTH = new Date();
 	
 		private MainFrame mainFrame;
 		private Mock mockUserDao;
@@ -102,8 +107,18 @@ public class MainFrameTest extends JFCTestCase {
 		}
 	    
 	    public void testAddUser() {
+	    	User user = new User(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH);
+	    	User expectedUser = new User(new Long(1),FIRST_NAME,LAST_NAME,DATE_OF_BIRTH);
+	    	mockUserDao.expectAndReturn("create", user, expectedUser);
+	    	
+	    	ArrayList<User> users = new ArrayList<User>(this.users);
+	    	users.add(expectedUser);
+	    	mockUserDao.expectAndReturn("findAll",users);
+	    	
+	    	
+	    	
 	    	JTable table = (JTable) find(JTable.class, "userTable");
-			assertEquals(0, table.getRowCount());
+			assertEquals(1, table.getRowCount());
 	    	
 			JButton addButton = (JButton) find(JButton.class, ADD_BUTTON);
 			getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
@@ -126,7 +141,7 @@ public class MainFrameTest extends JFCTestCase {
 			
 			find(JPanel.class, BROWSE_PANEL);
 			table = (JTable) find(JTable.class, "userTable");
-			assertEquals(1, table.getRowCount());
+			assertEquals(2, table.getRowCount());
 		}
 
 }
