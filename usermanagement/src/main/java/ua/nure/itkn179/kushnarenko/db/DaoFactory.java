@@ -23,7 +23,7 @@ public abstract class DaoFactory {
         }
     }
 	
-	public static DaoFactory getInstance() {
+	public static synchronized DaoFactory getInstance() {
 		if (instance == null) {
             Class<?> factoryClass;
             try {

@@ -4,7 +4,7 @@ import com.mockobjects.dynamic.Mock;
 
 import ua.nure.itkn179.kushnarenko.User;
 
-public class MockDaoFactory {
+public class MockDaoFactory extends DaoFactory {
 	private Mock mockUserDao;
     
     public MockDaoFactory() {

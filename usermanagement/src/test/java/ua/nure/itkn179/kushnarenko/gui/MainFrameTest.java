@@ -2,7 +2,9 @@ package ua.nure.itkn179.kushnarenko.gui;
 
 import java.awt.Component;
 import java.text.DateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -10,15 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.mockobjects.dynamic.Mock;
+
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
 import junit.extensions.jfcunit.TestHelper;
 import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.eventdata.StringEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
+import ua.nure.itkn179.kushnarenko.User;
 import ua.nure.itkn179.kushnarenko.db.DaoFactory;
-import ua.nure.itkn179.kushnarenko.db.DaoFactoryImpl;
-import ua.nure.itkn179.kushnarenko.db.MockUserDao;
+import ua.nure.itkn179.kushnarenko.db.MockDaoFactory;
 
 public class MainFrameTest extends JFCTestCase {
 		private static final String DELETE_BUTTON = "deleteButton";
@@ -29,19 +33,29 @@ public class MainFrameTest extends JFCTestCase {
 		private static final String ADD_PANEL = "addPanel";
 	
 		private MainFrame mainFrame;
-	
+		private Mock mockUserDao;
+		
+		
+		private List<User> users;
+		
 		@Override
-		public void setUp() throws Exception {
+		protected void setUp() throws Exception {
 			super.setUp();
 			try {
 				setHelper(new JFCTestHelper());
 				
 				Properties properties = new Properties();
-				properties.setProperty("dao.UserDao", 
-						MockUserDao.class.getName());
-				properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
-				DaoFactory.init(properties);
+	            properties.setProperty("dao.factory", MockDaoFactory.class
+	                    .getName());
+	            DaoFactory.init(properties);
+	            mockUserDao =((MockDaoFactory) DaoFactory.getInstance()).getMockUserDao();
+	            
+	            
+	            User expectedUser = new User(new Long(1000), "John", "Doe", new Date());
+	            users = Collections.singletonList(expectedUser);
+	            mockUserDao.expectAndReturn("findAll", users);
 				
+	            setHelper(new JFCTestHelper());
 				mainFrame = new MainFrame();
 			}catch (Exception e) {
 	            e.printStackTrace();
@@ -50,11 +64,17 @@ public class MainFrameTest extends JFCTestCase {
 		}
 
 	    @Override
-	    public void tearDown() throws Exception {
-	        mainFrame.setVisible(false);
-	        getHelper();
-	        TestHelper.cleanUp(this);
-	        super.tearDown();
+	    protected void tearDown() throws Exception {
+	    	 try {
+	             mockUserDao.verify();
+	             mainFrame.setVisible(false);
+	             getHelper();
+	             TestHelper.cleanUp(this);
+	             super.tearDown();
+	             
+	         } catch (Exception e) {
+	             e.printStackTrace();
+	         }
 	    }
 	    
 	    private Component find(Class<?> componentClass, String name) {

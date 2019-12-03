@@ -11,6 +11,16 @@ public class User implements Serializable {
 	private String lastName;
 	private Date dateofBirth;
 	
+	public User() {
+    }
+	
+	public User(Long id, String firstName, String lastName, Date dateOfBirth) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateofBirth = dateOfBirth;
+    }
+	
 	public Long getId() {
 		return id;
 	}
