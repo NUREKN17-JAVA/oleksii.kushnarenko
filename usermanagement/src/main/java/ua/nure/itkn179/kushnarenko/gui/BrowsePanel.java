@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import ua.nure.itkn179.kushnarenko.User;
 import ua.nure.itkn179.kushnarenko.db.DatabaseException;
 import ua.nure.itkn179.kushnarenko.util.Messages;
 
@@ -125,6 +126,51 @@ public class BrowsePanel extends JPanel implements ActionListener {
 		if("add".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
 			this.setVisible(false);
 			parent.showAddPanel();
+		}
+		else if("delete".equalsIgnoreCase(actionCommand)) {
+			int selectedRow = userTable.getSelectedRow();
+			if(selectedRow==-1) {
+                JOptionPane.showMessageDialog(this, "Select a user you need.","Delete user",JOptionPane.INFORMATION_MESSAGE);
+            }
+			else {
+				Object[] options = { "Да", "Нет" };
+	            int n = JOptionPane
+	                    .showOptionDialog(this, "Вы уверены?",
+	                            "Подтверждение", JOptionPane.YES_NO_OPTION,
+	                            JOptionPane.QUESTION_MESSAGE, null, options,
+	                            options[0]);
+	            if (n == 0) {
+	            	try{
+	                    parent.getDao().delete(((UserTableModel) userTable.getModel()).getUser(selectedRow));
+	                    initTable();
+	                }catch(DatabaseException e1){
+	                    JOptionPane.showMessageDialog(this,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+	                }
+	            	
+	            }
+			}
+		}
+		else if ("edit".equalsIgnoreCase(actionCommand)) {
+			int selectedRow = userTable.getSelectedRow();
+			if(selectedRow==-1) {
+                JOptionPane.showMessageDialog(this, "Select a user you need.","Edit user",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+			User user = ((UserTableModel) userTable.getModel())
+                    .getUser(selectedRow);
+			this.setVisible(false);
+            parent.showEditPanel(user);
+		}
+		else if ("details".equalsIgnoreCase(actionCommand)) {
+			int selectedRow = userTable.getSelectedRow();
+			if(selectedRow==-1) {
+                JOptionPane.showMessageDialog(this, "Select a user you need.","Details user",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+			User user = ((UserTableModel) userTable.getModel())
+                    .getUser(selectedRow);
+			this.setVisible(false);
+            parent.showDetailsPanel(user);
 		}
 	}
 

@@ -21,7 +21,7 @@ import ua.nure.itkn179.kushnarenko.util.Messages;
 public class AddPanel extends JPanel implements ActionListener {
 	private static final String ADD_PANEL = "addPanel"; //$NON-NLS-1$
 	private static final long serialVersionUID = 8945327706974938671L;
-	private MainFrame parent;
+	protected MainFrame parent;
 	private JPanel buttonPanel;
 	private JButton cancelButton;
 	private JButton okButton;
@@ -42,7 +42,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		this.add(getButtonPanel(), BorderLayout.SOUTH);
 	}
 	
-	private JPanel getButtonPanel() {
+	protected JPanel getButtonPanel() {
 		if (buttonPanel == null) {
 			buttonPanel = new JPanel();
 			buttonPanel.add(getOkButton(), null);
@@ -51,7 +51,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		return buttonPanel;
 	}
 	
-	private JButton getCancelButton() {
+	protected JButton getCancelButton() {
 		if (cancelButton == null) {
 			cancelButton = new JButton();
 			cancelButton.setText(Messages.getString("AddPanel.cancel")); //$NON-NLS-1$
@@ -84,7 +84,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		return fieldPanel;
 	}
 	
-	private JTextField getDateOfBirthField() {
+	protected JTextField getDateOfBirthField() {
 		if (dateOfBirthField == null) {
 			dateOfBirthField = new JTextField();
 			dateOfBirthField.setName("dateOfBirthField"); //$NON-NLS-1$
@@ -92,7 +92,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		return dateOfBirthField;
 	}
 	
-	private JTextField getLastNameField() {
+	protected JTextField getLastNameField() {
 		if (lastNameField == null) {
 			lastNameField = new JTextField();
 			lastNameField.setName("lastNameField"); //$NON-NLS-1$
@@ -100,7 +100,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		return lastNameField;
 	}
 	
-	private JTextField getFirstNameField() {
+	protected JTextField getFirstNameField() {
 		if (firstNameField == null) {
 			firstNameField = new JTextField();
 			firstNameField.setName("firstNameField"); //$NON-NLS-1$
@@ -139,7 +139,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		parent.showBrowsePanel();
 	}
 
-	private void clearFields() {
+	protected void clearFields() {
 		getFirstNameField().setText("");
 		getFirstNameField().setBackground(Color.WHITE);
 
