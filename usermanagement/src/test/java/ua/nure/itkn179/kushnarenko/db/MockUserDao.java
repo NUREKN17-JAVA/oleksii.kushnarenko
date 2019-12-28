@@ -32,7 +32,7 @@ public class MockUserDao implements Dao<User> {
     }
 
     @Override
-    public User find(Long id) throws DatabaseException {
+    public User find(long id) throws DatabaseException {
         return users.get(id);
     }
 

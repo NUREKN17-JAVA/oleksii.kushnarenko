@@ -15,4 +15,6 @@ public interface Dao<T> {
 	Collection<T> findAll() throws DatabaseException;
 	
 	void setConnectionFactory(ConnectionFactory connectionFactory);
+	
+	Collection<T> find(String firstName, String lastName) throws DatabaseException;
 }

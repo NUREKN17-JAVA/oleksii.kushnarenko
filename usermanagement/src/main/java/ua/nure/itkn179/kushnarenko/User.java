@@ -72,6 +72,9 @@ public class User implements Serializable {
 		
 		return age;
 	}
+	public String toString() {
+        return "Name : " + firstName + "\nSurname: " + lastName + "\nDate of birth: " + dateofBirth;
+    }
 	
 	public boolean equals(Object obj) {
 		if (obj == null) {
